@@ -6,9 +6,9 @@ public class CharacterView : MonoBehaviour
     private readonly int TakeDamageKey = Animator.StringToHash("TakeDamage");
     private readonly int IsDeadKey = Animator.StringToHash("IsDead");
 
-    [SerializeField] private Character _character;
-    [SerializeField] private Health _health;
     [SerializeField] private Animator _animator;
+    private Character _character;
+    private Health _health;
 
     [SerializeField] private DestinationMarker _markerPrefab;
     private DestinationMarker _currentMarker;
@@ -17,6 +17,12 @@ public class CharacterView : MonoBehaviour
     private const float InjuryThreshold = 0.3f;
 
     private bool _isInjured;
+
+    public void Initialize(Character character, Health health)
+    {
+        _character = character;
+        _health = health;
+    }
 
     public void CheckHealthStatus()
     {
@@ -31,9 +37,6 @@ public class CharacterView : MonoBehaviour
             _animator.SetLayerWeight(InjuredLayerIndex, 1);
         else
             _animator.SetLayerWeight(InjuredLayerIndex, 0);
-
-        if (_health.CurrentValue <= 0)
-            Die();
     }
 
     public void SetDestinationMarkerTo(Vector3 markerPostion)
@@ -54,7 +57,6 @@ public class CharacterView : MonoBehaviour
     public void Die()
     {
         _animator.SetBool(IsDeadKey, true);
-        _character.OnDeath();
     }
 
 }

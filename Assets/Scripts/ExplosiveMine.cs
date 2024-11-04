@@ -12,36 +12,32 @@ public class ExplosiveMine : MonoBehaviour
 
     private float _time;
 
+    private void Start()
+    {
+        GetComponent<SphereCollider>().radius = _radius;
+    }
+
     private void Update()
     {
-        if (_isActive == false)
-            if (CanActivate())
-                ActivateMine();
-            
         if (_isActive)
         {
             _time += Time.deltaTime;
 
             if (_time >= _timeForActivate)
-            {
                 Explode();
-            }
         }
     }
 
-    private bool CanActivate()
+    private void OnTriggerEnter(Collider other)
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
+        if (_isActive == false)
+            ActivateMine();
+    }
 
-        foreach (Collider collider in colliders)
-        {
-            IDamagable damagableObject = collider.GetComponent<IDamagable>();
-
-            if (damagableObject != null)
-                return true;
-        }
-
-        return false;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _radius);
     }
 
     private void ActivateMine()
@@ -65,11 +61,4 @@ public class ExplosiveMine : MonoBehaviour
 
         Destroy(gameObject);
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _radius);
-    }
-
 }
