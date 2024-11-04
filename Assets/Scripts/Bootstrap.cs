@@ -30,7 +30,7 @@ public class Bootstrap : MonoBehaviour
 
         character.Initialize(_view, _mover, _health);
         
-        _view.Initialize(character, _health);
+        _view.Initialize(_health);
         _inputHandler.Initialize(character, _view);
 
         _camera.Follow = character.CameraTarget;
