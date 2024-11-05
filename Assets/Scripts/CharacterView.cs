@@ -8,9 +8,6 @@ public class CharacterView : MonoBehaviour
 
     [SerializeField] private Animator _animator;
 
-    [SerializeField] private DestinationMarker _markerPrefab;
-    private DestinationMarker _currentMarker;
-
     private const int InjuredLayerIndex = 1;
     private const float InjuryThreshold = 0.3f;
     private bool _isInjured;
@@ -35,14 +32,6 @@ public class CharacterView : MonoBehaviour
             _animator.SetLayerWeight(InjuredLayerIndex, 1);
         else
             _animator.SetLayerWeight(InjuredLayerIndex, 0);
-    }
-
-    public void SetDestinationMarkerTo(Vector3 markerPostion)
-    {
-        if (_currentMarker == null)
-            _currentMarker = Instantiate(_markerPrefab, markerPostion, Quaternion.identity, null);
-        else
-            _currentMarker.transform.position = markerPostion;
     }
 
     public void StartWalking() => _animator.SetBool(IsWalkingKey, true);

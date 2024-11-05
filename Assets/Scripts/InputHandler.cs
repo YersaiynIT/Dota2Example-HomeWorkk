@@ -8,12 +8,12 @@ public class InputHandler : MonoBehaviour
 
     [SerializeField] private LayerMask _groundLayer;
     private Character _character;
-    private CharacterView _view;
+    private DestinationMarkerManager _markerManager;
 
-    public void Initialize(Character character, CharacterView view)
+    public void Initialize(Character character, DestinationMarkerManager markerManager)
     {
         _character = character;
-        _view = view;
+        _markerManager = markerManager;
     }
 
     private void Update()
@@ -23,7 +23,7 @@ public class InputHandler : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 movePointPosition = RaycastHelper.GetRaycastHitPoint(ray, _groundLayer);
 
-            _view.SetDestinationMarkerTo(movePointPosition);
+            _markerManager.SetDestinationMarker(movePointPosition);
 
             _character.ProcessMoveTo(movePointPosition);
         }

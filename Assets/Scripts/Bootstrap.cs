@@ -1,6 +1,4 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +7,7 @@ public class Bootstrap : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _camera;
     [SerializeField] private InputHandler _inputHandler;
+    [SerializeField] private DestinationMarkerManager _markerManager;
 
     [SerializeField] private Character _characterPrefab;
     [SerializeField] private Transform _startPoint;
@@ -31,7 +30,7 @@ public class Bootstrap : MonoBehaviour
         character.Initialize(_view, _mover, _health);
         
         _view.Initialize(_health);
-        _inputHandler.Initialize(character, _view);
+        _inputHandler.Initialize(character, _markerManager);
 
         _camera.Follow = character.CameraTarget;
         _camera.LookAt = character.CameraTarget;
