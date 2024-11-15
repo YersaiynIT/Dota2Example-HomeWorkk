@@ -3,6 +3,7 @@ using UnityEngine;
 public class CharacterView : MonoBehaviour
 {
     private readonly int IsWalkingKey = Animator.StringToHash("IsWalking");
+    private readonly int IsJumpingKey = Animator.StringToHash("IsJumping");
     private readonly int TakeDamageKey = Animator.StringToHash("TakeDamage");
     private readonly int IsDeadKey = Animator.StringToHash("IsDead");
 
@@ -38,6 +39,9 @@ public class CharacterView : MonoBehaviour
 
     public void StopWalking() => _animator.SetBool(IsWalkingKey, false);
 
+    public void StartJumping() => _animator.SetBool(IsJumpingKey, true);
+
+    public void StopJumping() => _animator.SetBool(IsJumpingKey, false);
 
     public void TakeDamage() => _animator.SetTrigger(TakeDamageKey);
 

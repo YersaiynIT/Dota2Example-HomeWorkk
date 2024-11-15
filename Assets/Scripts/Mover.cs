@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,12 +8,15 @@ public class Mover
     private NavMeshAgent _agent;
     private CharacterView _view;
 
+    private IAnimation _jumpAnimation;
+    
     private bool _isWalking;
 
-    public Mover(NavMeshAgent agent, CharacterView view)
+    public Mover(NavMeshAgent agent, CharacterView view, IAnimation jumpAnimatin)
     {
         _agent = agent;
         _view = view;
+        _jumpAnimation = jumpAnimatin;
     }
 
     public void MoveTo(Vector3 destination)
@@ -35,8 +36,12 @@ public class Mover
         {
             StopMoving();
         }
-    }
 
+        if (_agent.isOnOffMeshLink)
+        {
+            _jumpAnimation.Play();
+        }
+    }
     public void StopMoving()
     {
         _view.StopWalking();

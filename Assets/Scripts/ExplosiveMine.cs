@@ -3,6 +3,8 @@ using UnityEngine;
 public class ExplosiveMine : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _explosionEffectPrefab;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _explosionSound;
 
     [SerializeField] private float _radius;
     [SerializeField] private float _damage;
@@ -58,6 +60,7 @@ public class ExplosiveMine : MonoBehaviour
         }
 
         Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity, null);
+        _audioSource.PlayOneShot(_explosionSound);
 
         Destroy(gameObject);
     }
